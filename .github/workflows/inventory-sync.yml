@@ -27,7 +27,7 @@ jobs:
 
       # Run the inventory sync script
       - name: Run Inventory Sync Script
-        working-directory: ./scripts
+        working-directory: ./script
         run: yarn run sync
 
         # Pass in the environment variables (secrets)
