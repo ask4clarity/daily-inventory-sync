@@ -1,0 +1,16 @@
+{
+  "name": "inventory-sync-script",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "inventory-sync.js",
+  "scripts": {
+    "sync": "node inventory-sync.js"
+  },
+  "dependencies": {
+    "p-queue": "^7.0.0",
+    "@sanity/client": "^6.22.2"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

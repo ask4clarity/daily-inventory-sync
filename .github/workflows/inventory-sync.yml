@@ -1,0 +1,38 @@
+name: Daily Inventory Sync
+
+on:
+  schedule:
+    - cron: "0 11 * * *" # Every day at 3 AM
+  workflow_dispatch: # Add this to allow manual runs
+
+jobs:
+  sync_inventory:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checkout the repository code
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Set up Node.js to run the script
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "20"
+
+      # Navigate to the scripts folder and install dependencies
+      - name: Install dependencies
+        working-directory: ./script
+        run: yarn install
+
+      # Run the inventory sync script
+      - name: Run Inventory Sync Script
+        working-directory: ./scripts
+        run: yarn run sync
+
+        # Pass in the environment variables (secrets)
+        env:
+          SANITY_STUDIO_API_PROJECT_ID: ${{ secrets.SANITY_STUDIO_API_PROJECT_ID }}
+          SANITY_STUDIO_API_DATASET: ${{ secrets.SANITY_STUDIO_API_DATASET }}
+          HEARTLAND_BEARER_TOKEN: ${{ secrets.HEARTLAND_BEARER_TOKEN }}
+          SANITY_KEY: ${{ secrets.SANITY_KEY }}
